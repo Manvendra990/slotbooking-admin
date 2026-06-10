@@ -1,0 +1,100 @@
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:go_router/go_router.dart';
+import 'package:slotbookingadmin/Admin/admin_shell.dart';
+import 'package:slotbookingadmin/Admin/bookings/admin_booking_screen.dart';
+import 'package:slotbookingadmin/Admin/bookings/admin_edit_booking_screen.dart';
+import 'package:slotbookingadmin/Admin/dashboard/admin_dashboard_screen.dart';
+import 'package:slotbookingadmin/Admin/ground/add_edit_ground_screen.dart';
+import 'package:slotbookingadmin/Admin/ground/my_grounds_screen.dart';
+import 'package:slotbookingadmin/Admin/revenue/revenue_report_screen.dart';
+import 'package:slotbookingadmin/features/auth/screens/login_screen.dart';
+import 'package:slotbookingadmin/features/auth/screens/register_screen.dart';
+import 'package:slotbookingadmin/features/auth/screens/splash_screen.dart';
+
+final GoRouter router = GoRouter(
+  initialLocation: '/',
+
+  redirect: (context, state) {
+    final loggedIn = FirebaseAuth.instance.currentUser != null;
+
+    final publicRoutes = [
+      '/',
+      '/role-selection',
+      '/admin/login',
+      '/user/login'
+          '/user/otp',
+      '/admin/register',
+      '/user/register',
+      '/master/register',
+    ];
+
+    final isPublic = publicRoutes.contains(state.uri.path);
+
+    if (!loggedIn && !isPublic) {
+      return '/';
+    }
+
+    return null;
+  },
+
+  routes: [
+    GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
+
+    GoRoute(
+      path: '/admin/login',
+      builder: (context, state) {
+        final role = state.uri.queryParameters['role'] ?? 'admin';
+        return AdminLoginScreen();
+      },
+    ),
+
+    GoRoute(
+      path: '/admin/register',
+      builder: (context, state) {
+        final role = state.uri.queryParameters['role'] ?? 'admin';
+        return AdminRegisterScreen();
+      },
+    ),
+
+    GoRoute(
+      path: '/admin/dashboard',
+      builder: (context, state) {
+        return const AdminShell(child: AdminDashboardScreen());
+      },
+    ),
+
+    GoRoute(
+      path: '/admin/slotmanagement',
+      builder: (context, state) {
+        return const AdminShell(child: AddSlotScreen());
+      },
+    ),
+    GoRoute(
+      path: '/admin/slot',
+      builder: (context, state) {
+        return const AdminShell(child: AdminBookingsScreen());
+      },
+    ),
+    GoRoute(
+      path: '/admin/addgrounds',
+      builder: (context, state) {
+        return const AdminShell(child: AddGroundScreen());
+      },
+    ),
+    GoRoute(
+      path: '/admin/grounds',
+      builder: (context, state) {
+        return const AdminShell(child: AdminGroundsScreen());
+      },
+    ),
+
+    GoRoute(
+      path: '/admin/revenue',
+      builder: (context, state) {
+        final adminId = FirebaseAuth.instance.currentUser?.uid ?? '';
+        return AdminShell(child: AdminRevenueScreen(adminId: adminId));
+      },
+    ),
+  ],
+);
