@@ -86,7 +86,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
               child: StreamBuilder<QuerySnapshot>(
                 // ✅ NO orderBy — simple where only, zero index required
                 stream: FirebaseFirestore.instance
-                    .collection('bookings')
+                    .collection('admin_bookings')
                     .where('adminId', isEqualTo: _uid)
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -272,7 +272,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                 );
                 if (confirm == true) {
                   await FirebaseFirestore.instance
-                      .collection('bookings')
+                      .collection('admin_bookings')
                       .doc(bookingId)
                       .delete();
                   if (mounted) ctx.pop();
@@ -287,7 +287,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
             ElevatedButton(
               onPressed: () async {
                 await FirebaseFirestore.instance
-                    .collection('bookings')
+                    .collection('admin_bookings')
                     .doc(bookingId)
                     .update({'bookingStatus': status});
                 if (mounted) Navigator.pop(ctx);
@@ -431,7 +431,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
           ElevatedButton(
             onPressed: () async {
               await FirebaseFirestore.instance
-                  .collection('bookings')
+                  .collection('admin_bookings')
                   .doc(bookingId)
                   .delete();
               if (mounted) Navigator.pop(ctx);

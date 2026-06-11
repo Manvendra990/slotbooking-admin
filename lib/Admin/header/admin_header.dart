@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:slotbookingadmin/Admin/admin_shell.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class AdminHeader extends StatelessWidget {
   final String title;
@@ -9,7 +10,7 @@ class AdminHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surfaceBright,
         border: Border(bottom: BorderSide(color: Colors.black12, width: 2)),
         boxShadow: [
           BoxShadow(color: Colors.black12, blurRadius: 1, offset: Offset(0, 1)),

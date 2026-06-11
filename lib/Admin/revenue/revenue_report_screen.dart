@@ -91,7 +91,7 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const AdminNavBar(currentIndex: 3),
+      bottomNavigationBar: const AdminNavBar(currentIndex: 4),
       backgroundColor: const Color(0xFFF5F7F5),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: _txStream,

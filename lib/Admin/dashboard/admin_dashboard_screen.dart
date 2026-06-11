@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:slotbookingadmin/Admin/header/admin_header.dart';
 import 'package:slotbookingadmin/Admin/navbar/adminNavbar.dart';
+import 'package:slotbookingadmin/theme/app_theme.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
+import 'package:slotbookingadmin/theme/app_spacing.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({super.key});
@@ -15,7 +18,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   bool _isMonthly = true;
 
   // hellooo
-  static const _green = Color(0xFF0D5C3A);
+  // static const _green = Color(0xFF0D5C3A);
   static const _greenLight = Color(0xFFE8F5EE);
   static const _bg = Color(0xFFF0F3F0);
 
@@ -92,7 +95,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _bg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -104,24 +107,19 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             // ── Scrollable content ─────────────────────────────────────────
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                padding: EdgeInsets.all(AppSpacing.mobileMargin),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Overview title
-                    const Text(
+                    Text(
                       'Overview',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w800,
-                        color: Color(0xFF0E1A13),
-                        letterSpacing: -0.5,
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 2),
                     Text(
                       'Real-time performance metrics',
-                      style: TextStyle(fontSize: 13, color: Colors.grey[500]),
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                     const SizedBox(height: 20),
 
@@ -131,19 +129,19 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                       icon: Icons.calendar_today_rounded,
                       value: '24',
                       sub: '+12% vs yesterday',
-                      subColor: _green,
+                      subColor: Theme.of(context).colorScheme.primary,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: AppSpacing.md),
                     _MetricCard(
                       label: 'MONTHLY REVENUE',
                       icon: Icons.attach_money_rounded,
                       value: '\$12.5k',
                       sub: 'On track',
-                      subColor: _green,
+                      subColor: Theme.of(context).colorScheme.primary,
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: AppSpacing.md),
                     _OccupancyCard(),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: AppSpacing.md),
 
                     // ── Booking trends chart ───────────────────────────────
                     _buildTrendsCard(),
@@ -155,22 +153,32 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                     Row(
                       children: [
                         Expanded(
-                          child: _ActionButton(
-                            label: 'Add Ground',
-                            icon: Icons.add_circle_outline_rounded,
-                            backgroundColor: _green,
-                            textColor: Colors.white,
-                            onTap: () => context.push('/admin/addgrounds'),
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: _ActionButton(
+                              label: 'Add Ground',
+                              icon: Icons.add_circle_outline_rounded,
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.primary,
+                              textColor: Colors.white,
+                              onTap: () => context.push('/admin/addgrounds'),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
-                          child: _ActionButton(
-                            label: 'Create Slots',
-                            icon: Icons.block_rounded,
-                            backgroundColor: const Color(0xFFEAEEF5),
-                            textColor: const Color(0xFF2C3E50),
-                            onTap: () => context.go('/admin/slotmanagement'),
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: _ActionButton(
+                              label: 'Create Slots',
+                              icon: Icons.block_rounded,
+                              backgroundColor: AppColors.primary.withOpacity(
+                                .08,
+                              ),
+                              textColor: AppColors.primary,
+                              onTap: () => context.go('/admin/slotmanagement'),
+                            ),
                           ),
                         ),
                       ],
@@ -195,14 +203,14 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                             'See all',
                             style: TextStyle(
                               fontSize: 13,
-                              color: _green,
+                              color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: AppSpacing.md),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -248,7 +256,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
   Widget _buildTopBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+      padding: EdgeInsets.all(AppSpacing.mobileMargin),
       child: Row(
         children: [
           // Avatar
@@ -256,26 +264,25 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
             width: 42,
             height: 42,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: AppColors.primary.withOpacity(0.8),
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 2),
+              border: Border.all(color: AppColors.primary, width: 2),
             ),
             child: const Icon(
               Icons.person_rounded,
-              color: Colors.white,
+              color: AppColors.primary,
               size: 24,
             ),
           ),
           const Spacer(),
 
           // Logo
-          const Text(
+          Text(
             'KINETIC',
-            style: TextStyle(
-              fontSize: 20,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w900,
               letterSpacing: 3,
-              color: Color(0xFF0D5C3A),
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const Spacer(),
@@ -413,19 +420,19 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                   LineChartBarData(
                     spots: spots,
                     isCurved: true,
-                    color: const Color(0xFF0D5C3A),
+                    color: AppColors.primary,
                     barWidth: 2.5,
                     isStrokeCapRound: true,
                     dotData: const FlDotData(show: false),
                     belowBarData: BarAreaData(
                       show: true,
-                      color: const Color(0xFF0D5C3A).withOpacity(0.08),
+                      color: AppColors.primary.withOpacity(0.08),
                     ),
                   ),
                 ],
                 lineTouchData: LineTouchData(
                   touchTooltipData: LineTouchTooltipData(
-                    getTooltipColor: (_) => const Color(0xFF0D5C3A),
+                    getTooltipColor: (_) => AppColors.primary,
                     getTooltipItems: (spots) => spots
                         .map(
                           (s) => LineTooltipItem(
@@ -497,10 +504,10 @@ class _MetricCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE8F5EE),
+                  color: AppColors.primary.withOpacity(.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(icon, size: 18, color: const Color(0xFF0D5C3A)),
+                child: Icon(icon, size: 18, color: AppColors.primary),
               ),
             ],
           ),
@@ -538,7 +545,7 @@ class _MetricCard extends StatelessWidget {
 // ── Occupancy Card ────────────────────────────────────────────────────────────
 
 class _OccupancyCard extends StatelessWidget {
-  static const _green = Color(0xFF0D5C3A);
+  // static const _green = Color(0xFF0D5C3A);
 
   @override
   Widget build(BuildContext context) {
@@ -573,13 +580,13 @@ class _OccupancyCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE8F5EE),
+                  color: AppColors.primary.withOpacity(.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(
                   Icons.bar_chart_rounded,
                   size: 18,
-                  color: _green,
+                  color: AppColors.primary,
                 ),
               ),
             ],
@@ -601,7 +608,9 @@ class _OccupancyCard extends StatelessWidget {
               value: 0.88,
               minHeight: 8,
               backgroundColor: Colors.grey[200],
-              valueColor: const AlwaysStoppedAnimation<Color>(_green),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.primary,
+              ),
             ),
           ),
         ],
@@ -664,7 +673,7 @@ class _ToggleChip extends StatelessWidget {
   final bool isActive;
   final VoidCallback onTap;
 
-  static const _green = Color(0xFF0D5C3A);
+  // static const _green = Color(0xFF0D5C3A);
 
   const _ToggleChip({
     required this.label,
@@ -680,7 +689,7 @@ class _ToggleChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         decoration: BoxDecoration(
-          color: isActive ? _green : Colors.grey[100],
+          color: isActive ? AppColors.primary : AppColors.chipBg,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -688,7 +697,7 @@ class _ToggleChip extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: isActive ? Colors.white : Colors.grey[600],
+            color: isActive ? Colors.white : AppColors.textSecondary,
           ),
         ),
       ),
@@ -766,7 +775,9 @@ class _BookingRow extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
-              color: isConfirmed ? const Color(0xFFE8F5EE) : Colors.orange[50],
+              color: isConfirmed
+                  ? AppColors.primary.withOpacity(.1)
+                  : Colors.orange[50],
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -776,9 +787,7 @@ class _BookingRow extends StatelessWidget {
                   width: 6,
                   height: 6,
                   decoration: BoxDecoration(
-                    color: isConfirmed
-                        ? const Color(0xFF0D5C3A)
-                        : Colors.orange[600],
+                    color: isConfirmed ? AppColors.primary : Colors.orange[600],
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -788,9 +797,7 @@ class _BookingRow extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: isConfirmed
-                        ? const Color(0xFF0D5C3A)
-                        : Colors.orange[700],
+                    color: isConfirmed ? AppColors.primary : Colors.orange[700],
                   ),
                 ),
               ],

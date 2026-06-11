@@ -207,7 +207,8 @@ class _AdminGroundsScreenState extends State<AdminGroundsScreen> {
                           onDelete: () =>
                               _deleteGround(doc.id, data['name'] ?? 'Ground'),
                           onEdit: () =>
-                              context.push('/admin/editground/${doc.id}'),
+                              // context.push('/admin/addgrounds/${doc.id}'),\
+                              context.push('/admin/addgrounds'),
                         ),
                       );
                     },
