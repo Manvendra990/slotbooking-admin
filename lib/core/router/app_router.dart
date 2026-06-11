@@ -2,12 +2,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:slotbookingadmin/Admin/admin_shell.dart';
-import 'package:slotbookingadmin/Admin/bookings/admin_booking_screen.dart';
-import 'package:slotbookingadmin/Admin/bookings/admin_edit_booking_screen.dart';
+
 import 'package:slotbookingadmin/Admin/dashboard/admin_dashboard_screen.dart';
 import 'package:slotbookingadmin/Admin/ground/add_edit_ground_screen.dart';
 import 'package:slotbookingadmin/Admin/ground/my_grounds_screen.dart';
 import 'package:slotbookingadmin/Admin/revenue/revenue_report_screen.dart';
+import 'package:slotbookingadmin/Admin/slot_bookings/admin_addslot.dart';
+import 'package:slotbookingadmin/Admin/slot_bookings/admin_slotview.dart';
 import 'package:slotbookingadmin/features/auth/screens/login_screen.dart';
 import 'package:slotbookingadmin/features/auth/screens/register_screen.dart';
 import 'package:slotbookingadmin/features/auth/screens/splash_screen.dart';

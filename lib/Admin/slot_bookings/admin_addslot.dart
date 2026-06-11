@@ -170,7 +170,9 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
       final batch = FirebaseFirestore.instance.batch();
 
       for (final slot in _createdSlots) {
-        final ref = FirebaseFirestore.instance.collection('bookings').doc();
+        final ref = FirebaseFirestore.instance
+            .collection('admin_bookings')
+            .doc();
         batch.set(ref, {
           'adminId': uid,
           'groundId': slot.groundId,
