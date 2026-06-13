@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:slotbookingadmin/Admin/navbar/adminNavbar.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class AdminBookingsScreen extends StatefulWidget {
   const AdminBookingsScreen({super.key});
@@ -39,12 +40,12 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.5,
-                      color: _green,
+                      color: AppColors.primary,
                     ),
                   ),
                   const SizedBox(height: 4),
                   const Text(
-                    'My Booked Slots',
+                    'My Slots',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w800,
@@ -92,7 +93,9 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
-                      child: CircularProgressIndicator(color: _green),
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      ),
                     );
                   }
 
@@ -239,7 +242,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                activeColor: _green,
+                activeColor: AppColors.primary,
                 contentPadding: EdgeInsets.zero,
                 onChanged: (v) => setDialogState(() => status = v!),
               );
@@ -293,7 +296,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                 if (mounted) Navigator.pop(ctx);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: _green,
+                backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -390,7 +393,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
               child: ElevatedButton(
                 onPressed: () => Navigator.pop(ctx),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _green,
+                  backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -465,7 +468,7 @@ class _SummaryCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: _green,
+        color: AppColors.primary,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -610,21 +613,21 @@ class _BookingCard extends StatelessWidget {
               children: [
                 _StatusBadge(status: displayStatus),
                 const SizedBox(width: 10),
-                Text(
-                  'Booking ID: $shortId',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                // Text(
+                //   'Booking ID: $shortId',
+                //   style: TextStyle(
+                //     fontSize: 12,
+                //     color: Colors.grey[500],
+                //     fontWeight: FontWeight.w500,
+                //   ),
+                // ),
                 const Spacer(),
                 Text(
                   '₹$amount',
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w800,
-                    color: _green,
+                    color: AppColors.primary,
                   ),
                 ),
               ],
@@ -737,17 +740,25 @@ class _BookingCard extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 11),
                       decoration: BoxDecoration(
-                        color: isSlotPast ? Colors.red.shade600 : _green,
+                        color: isSlotPast
+                            ? Colors.red.shade600
+                            : AppColors.primary,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       alignment: Alignment.center,
-                      child: Text(
-                        isSlotPast ? 'Delete' : 'Edit Booking',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.edit, color: Colors.white, size: 14),
+                          Text(
+                            isSlotPast ? 'Delete' : 'Edit',
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

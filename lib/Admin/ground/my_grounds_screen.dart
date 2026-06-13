@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:slotbookingadmin/Admin/navbar/adminNavbar.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class AdminGroundsScreen extends StatefulWidget {
   const AdminGroundsScreen({super.key});
@@ -12,8 +13,8 @@ class AdminGroundsScreen extends StatefulWidget {
 }
 
 class _AdminGroundsScreenState extends State<AdminGroundsScreen> {
-  static const _green = Color(0xFF0D5C3A);
-  static const _greenLight = Color(0xFFE8F5EE);
+  // static const _green = Color(0xFF0D5C3A);
+  // static const _greenLight = Color(0xFFE8F5EE);
 
   final _uid = FirebaseAuth.instance.currentUser?.uid ?? '';
 
@@ -89,7 +90,7 @@ class _AdminGroundsScreenState extends State<AdminGroundsScreen> {
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1.5,
-                      color: _green,
+                      color: AppColors.primary,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -111,7 +112,7 @@ class _AdminGroundsScreenState extends State<AdminGroundsScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       decoration: BoxDecoration(
-                        color: _green,
+                        color: AppColors.primary,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Row(
@@ -151,7 +152,9 @@ class _AdminGroundsScreenState extends State<AdminGroundsScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
-                      child: CircularProgressIndicator(color: _green),
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      ),
                     );
                   }
 
@@ -187,7 +190,7 @@ class _AdminGroundsScreenState extends State<AdminGroundsScreen> {
                       // Last item → Add Another Facility card
                       if (index == docs.length) {
                         return _AddAnotherCard(
-                          onTap: () => context.go('/admin/addground'),
+                          onTap: () => context.push('/admin/addgrounds'),
                         );
                       }
 
@@ -234,7 +237,7 @@ class _GroundCard extends StatelessWidget {
   final dynamic images;
   final VoidCallback onDelete, onEdit;
 
-  static const _green = Color(0xFF0D5C3A);
+  // static const _green = Color(0xFF0D5C3A);
 
   const _GroundCard({
     required this.groundId,
@@ -253,7 +256,7 @@ class _GroundCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isActive = status;
     final statusLabel = isActive ? 'ACTIVE' : 'UNDER REVIEW';
-    final statusColor = isActive ? _green : const Color(0xFF1A6BB5);
+    final statusColor = isActive ? AppColors.primary : const Color(0xFF1A6BB5);
 
     return Container(
       decoration: BoxDecoration(
@@ -336,7 +339,7 @@ class _GroundCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w800,
-                              color: _green,
+                              color: AppColors.primary,
                             ),
                           ),
                           TextSpan(

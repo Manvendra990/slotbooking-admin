@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/auth_provider.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class AdminLoginScreen extends ConsumerStatefulWidget {
   const AdminLoginScreen({super.key});
@@ -26,7 +27,7 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen>
   late final Animation<double> _headerFade;
 
   // ── palette ──────────────────────────────────────────────────────────────
-  static const _green = Color(0xFF0D5C3A);
+  // static const _green = Color(0xFF0D5C3A);
   static const _bg = Color(0xFFE8EBE8);
   static const _border = Color(0xFFDDE0DD);
 
@@ -132,7 +133,7 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen>
                         fontSize: 32,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 3,
-                        color: _green,
+                        color: AppColors.primary,
                         fontFamily: 'serif',
                       ),
                     ),
@@ -206,7 +207,7 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen>
                                   child: Text(
                                     'Forgot?',
                                     style: TextStyle(
-                                      color: _green,
+                                      color: AppColors.primary,
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -248,7 +249,7 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen>
                                   height: 20,
                                   child: Checkbox(
                                     value: _keepLoggedIn,
-                                    activeColor: _green,
+                                    activeColor: AppColors.primary,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4),
                                     ),
@@ -276,15 +277,14 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen>
                               child: ElevatedButton(
                                 onPressed: authState.isLoading ? null : _submit,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: _green,
+                                  backgroundColor: AppColors.primary,
                                   foregroundColor: Colors.white,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  disabledBackgroundColor: _green.withOpacity(
-                                    0.6,
-                                  ),
+                                  disabledBackgroundColor: AppColors.primary
+                                      .withOpacity(0.6),
                                 ),
                                 child: authState.isLoading
                                     ? const SizedBox(
@@ -340,9 +340,9 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen>
                                 onPressed: () =>
                                     context.go('/admin/register?role=admin'),
                                 style: OutlinedButton.styleFrom(
-                                  foregroundColor: _green,
+                                  foregroundColor: AppColors.primary,
                                   side: BorderSide(
-                                    color: _green.withOpacity(0.5),
+                                    color: AppColors.primary.withOpacity(0.5),
                                     width: 1.5,
                                   ),
                                   shape: RoundedRectangleBorder(
@@ -409,7 +409,7 @@ class _FieldLabel extends StatelessWidget {
     style: TextStyle(
       fontSize: 13,
       fontWeight: FontWeight.w600,
-      color: Colors.grey[700],
+      color: AppColors.textSecondary,
     ),
   );
 }
@@ -461,7 +461,7 @@ class _InputField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Color(0xFF0D5C3A), width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

@@ -17,11 +17,6 @@ class AdminDashboardScreen extends StatefulWidget {
 class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   bool _isMonthly = true;
 
-  // hellooo
-  // static const _green = Color(0xFF0D5C3A);
-  static const _greenLight = Color(0xFFE8F5EE);
-  static const _bg = Color(0xFFF0F3F0);
-
   // ── Booking trend data ────────────────────────────────────────────────────
   final List<FlSpot> _weeklySpots = const [
     FlSpot(0, 8),
@@ -189,13 +184,13 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Recent Bookings',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xFF0E1A13),
-                          ),
+                          style: Theme.of(context).textTheme.headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.textPrimary,
+                              ),
                         ),
                         GestureDetector(
                           onTap: () => context.go('/admin/bookings'),
@@ -231,9 +226,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                               if (i < _bookings.length - 1)
                                 Divider(
                                   height: 1,
-                                  color: Colors.grey[100],
-                                  indent: 16,
-                                  endIndent: 16,
+                                  color: AppColors.divider,
+                                  indent: AppSpacing.mobileMargin,
+                                  endIndent: AppSpacing.mobileMargin,
                                 ),
                             ],
                           );

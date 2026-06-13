@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:slotbookingadmin/Admin/navbar/adminNavbar.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class AddSlotScreen extends StatefulWidget {
   const AddSlotScreen({super.key});
@@ -78,9 +79,9 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 90)),
       builder: (ctx, child) => Theme(
-        data: Theme.of(
-          ctx,
-        ).copyWith(colorScheme: const ColorScheme.light(primary: _green)),
+        data: Theme.of(ctx).copyWith(
+          colorScheme: const ColorScheme.light(primary: AppColors.primary),
+        ),
         child: child!,
       ),
     );
@@ -93,9 +94,9 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
       context: context,
       initialTime: isStart ? _startTime : _endTime,
       builder: (ctx, child) => Theme(
-        data: Theme.of(
-          ctx,
-        ).copyWith(colorScheme: const ColorScheme.light(primary: _green)),
+        data: Theme.of(ctx).copyWith(
+          colorScheme: const ColorScheme.light(primary: AppColors.primary),
+        ),
         child: child!,
       ),
     );
@@ -232,7 +233,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                 ),
                 child: const Icon(
                   Icons.check_circle_rounded,
-                  color: _green,
+                  color: AppColors.primary,
                   size: 42,
                 ),
               ),
@@ -265,7 +266,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                     setState(() => _createdSlots.clear());
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _green,
+                    backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
@@ -319,19 +320,16 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                   //   ),
                   //   onPressed: () => context.pop(),
                   // ),
-                  const Text(
+                  Text(
                     '  Manage Slots',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF0E1A13),
-                      letterSpacing: -0.5,
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      color: AppColors.primary,
                     ),
                   ),
                   const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.notifications_none_rounded),
-                    color: Colors.grey[700],
+                    color: AppColors.primary,
                     onPressed: () {},
                   ),
                 ],
@@ -342,7 +340,9 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
             Expanded(
               child: _isLoading
                   ? const Center(
-                      child: CircularProgressIndicator(color: _green),
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      ),
                     )
                   : SingleChildScrollView(
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
@@ -359,23 +359,26 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                                     Container(
                                       padding: const EdgeInsets.all(8),
                                       decoration: BoxDecoration(
-                                        color: _greenLight,
+                                        color: AppColors.primary.withOpacity(
+                                          0.2,
+                                        ),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: const Icon(
                                         Icons.add_circle_outline_rounded,
-                                        color: _green,
+                                        color: AppColors.primary,
                                         size: 20,
                                       ),
                                     ),
                                     const SizedBox(width: 10),
-                                    const Text(
+                                    Text(
                                       'Create New Slot',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w800,
-                                        color: Color(0xFF0E1A13),
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                            color: AppColors.textSecondary,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -388,7 +391,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                                     ? Container(
                                         padding: const EdgeInsets.all(14),
                                         decoration: BoxDecoration(
-                                          color: Colors.orange[50],
+                                          color: AppColors.textPrimary,
                                           borderRadius: BorderRadius.circular(
                                             10,
                                           ),
@@ -476,7 +479,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                                     prefixIcon: const Icon(
                                       Icons.currency_rupee_rounded,
                                       size: 18,
-                                      color: _green,
+                                      color: AppColors.primary,
                                     ),
                                     filled: true,
                                     fillColor: const Color(0xFFF8FAFB),
@@ -501,7 +504,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: const BorderSide(
-                                        color: _green,
+                                        color: AppColors.primary,
                                         width: 1.5,
                                       ),
                                     ),
@@ -532,9 +535,9 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                                       ),
                                     ),
                                     style: OutlinedButton.styleFrom(
-                                      foregroundColor: _green,
+                                      foregroundColor: AppColors.primary,
                                       side: const BorderSide(
-                                        color: _green,
+                                        color: AppColors.primary,
                                         width: 1.5,
                                       ),
                                       shape: RoundedRectangleBorder(
@@ -621,15 +624,14 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
                                   ),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: _green,
+                                  backgroundColor: AppColors.primary,
                                   foregroundColor: Colors.white,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(14),
                                   ),
-                                  disabledBackgroundColor: _green.withOpacity(
-                                    0.5,
-                                  ),
+                                  disabledBackgroundColor: AppColors.primary
+                                      .withOpacity(0.5),
                                 ),
                               ),
                             ),
@@ -703,7 +705,11 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
         ),
         child: Row(
           children: [
-            const Icon(Icons.calendar_today_rounded, size: 18, color: _green),
+            const Icon(
+              Icons.calendar_today_rounded,
+              size: 18,
+              color: AppColors.primary,
+            ),
             const SizedBox(width: 10),
             Text(
               DateFormat('EEE, dd MMM yyyy').format(_slotDate),
@@ -737,7 +743,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
         ),
         child: Row(
           children: [
-            Icon(Icons.access_time_rounded, size: 16, color: _green),
+            Icon(Icons.access_time_rounded, size: 16, color: AppColors.primary),
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -777,7 +783,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: isValid ? _greenLight : Colors.red[50],
+        color: isValid ? AppColors.primary.withOpacity(0.2) : Colors.red[50],
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -785,7 +791,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
           Icon(
             isValid ? Icons.timer_outlined : Icons.error_outline_rounded,
             size: 18,
-            color: isValid ? _green : Colors.red[400],
+            color: isValid ? AppColors.primary : Colors.red[400],
           ),
           const SizedBox(width: 10),
           Text(
@@ -793,7 +799,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: isValid ? _green : Colors.red[600],
+              color: isValid ? AppColors.primary : Colors.red[600],
             ),
           ),
           if (isValid && _amountCtrl.text.isNotEmpty) ...[
@@ -803,7 +809,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w800,
-                color: _green,
+                color: AppColors.primary,
               ),
             ),
           ],
@@ -818,7 +824,7 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
       style: TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w600,
-        color: Colors.grey[700],
+        color: AppColors.textPrimary,
       ),
     );
   }
@@ -862,7 +868,7 @@ class _SlotListItem extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w800,
-                color: _green,
+                color: AppColors.primary,
               ),
             ),
           ),
@@ -892,7 +898,7 @@ class _SlotListItem extends StatelessWidget {
             style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w800,
-              color: _green,
+              color: AppColors.primary,
             ),
           ),
           const SizedBox(width: 8),

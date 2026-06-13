@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class AddGroundScreen extends StatefulWidget {
   const AddGroundScreen({super.key});
@@ -149,13 +150,13 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
               Container(
                 width: 72,
                 height: 72,
-                decoration: const BoxDecoration(
-                  color: _greenLight,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(.10),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   Icons.check_circle_rounded,
-                  color: _green,
+                  color: AppColors.primary,
                   size: 42,
                 ),
               ),
@@ -165,7 +166,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
-                  color: Color(0xFF0E1A13),
+                  color: AppColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 8),
@@ -174,7 +175,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13,
-                  color: Colors.grey[600],
+                  color: AppColors.textSecondary,
                   height: 1.5,
                 ),
               ),
@@ -188,7 +189,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                     context.go('/admin/grounds');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _green,
+                    backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
@@ -211,7 +212,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.background,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -224,7 +225,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                   IconButton(
                     icon: const Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      color: Color(0xFF0D5C3A),
+                      color: AppColors.primary,
                     ),
                     onPressed: () => context.pop(),
                   ),
@@ -233,26 +234,26 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
-                      color: Color(0xFF0D5C3A),
+                      color: AppColors.primary,
                       height: 1.2,
                     ),
                   ),
                   const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.notifications_none_rounded),
-                    color: Colors.grey[700],
+                    color: AppColors.primary,
                     onPressed: () {},
                   ),
                   Container(
                     width: 36,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: AppColors.primary.withOpacity(.12),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
                       Icons.person_rounded,
-                      color: Colors.white,
+                      color: AppColors.primary,
                       size: 20,
                     ),
                   ),
@@ -281,13 +282,13 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               'Location',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF0E1A13),
-                              ),
+                              style: Theme.of(context).textTheme.bodyLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.textPrimary,
+                                  ),
                             ),
                             GestureDetector(
                               onTap: () {},
@@ -296,14 +297,14 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                   const Icon(
                                     Icons.edit_location_alt_outlined,
                                     size: 16,
-                                    color: _green,
+                                    color: AppColors.primary,
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     'Edit',
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: _green,
+                                      color: AppColors.primary,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -322,7 +323,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                           borderRadius: BorderRadius.circular(12),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              color: AppColors.border,
                               image: DecorationImage(
                                 image: AssetImage("assets/images/bg_map.png"),
                                 fit: BoxFit.cover,
@@ -336,17 +337,17 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                 Icon(
                                   Icons.map_outlined,
                                   size: 60,
-                                  color: Colors.grey[400],
+                                  color: AppColors.textSecondary,
                                 ),
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: const BoxDecoration(
-                                    color: _green,
+                                    color: AppColors.primary,
                                     shape: BoxShape.circle,
                                   ),
                                   child: const Icon(
                                     Icons.location_on,
-                                    color: Colors.white,
+                                    color: AppColors.textSecondary,
                                     size: 20,
                                   ),
                                 ),
@@ -382,7 +383,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                       ),
 
                       const SizedBox(height: 16),
-                      const Divider(height: 1, color: Color(0xFFF0F0F0)),
+                      const Divider(height: 1, color: AppColors.divider),
                       const SizedBox(height: 16),
 
                       // ── Ground Name ────────────────────────────────────────
@@ -412,7 +413,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                       ),
 
                       const SizedBox(height: 20),
-                      const Divider(height: 1, color: Color(0xFFF0F0F0)),
+                      const Divider(height: 1, color: AppColors.divider),
                       const SizedBox(height: 16),
 
                       // ── Amenities ──────────────────────────────────────────
@@ -429,14 +430,14 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,
-                                    color: Color(0xFF0E1A13),
+                                    color: AppColors.textPrimary,
                                   ),
                                 ),
                                 Text(
                                   'Select all that apply',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: Colors.grey[500],
+                                    color: AppColors.textSecondary,
                                   ),
                                 ),
                               ],
@@ -457,13 +458,15 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                     ),
                                     decoration: BoxDecoration(
                                       color: a.selected
-                                          ? _greenLight
-                                          : Colors.white,
+                                          ? AppColors.primary.withOpacity(.10)
+                                          : AppColors.card,
                                       borderRadius: BorderRadius.circular(30),
                                       border: Border.all(
                                         color: a.selected
-                                            ? _green
-                                            : Colors.grey[300]!,
+                                            ? AppColors.primary
+                                            : AppColors.primary.withOpacity(
+                                                .12,
+                                              ),
                                         width: a.selected ? 1.5 : 1,
                                       ),
                                     ),
@@ -474,8 +477,8 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                           a.icon,
                                           size: 16,
                                           color: a.selected
-                                              ? _green
-                                              : Colors.grey[500],
+                                              ? AppColors.primary
+                                              : AppColors.textSecondary,
                                         ),
                                         const SizedBox(width: 6),
                                         Text(
@@ -486,8 +489,8 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                                 ? FontWeight.w600
                                                 : FontWeight.w400,
                                             color: a.selected
-                                                ? _green
-                                                : Colors.grey[600],
+                                                ? AppColors.primary
+                                                : AppColors.textSecondary,
                                           ),
                                         ),
                                         if (a.selected) ...[
@@ -495,7 +498,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                           const Icon(
                                             Icons.check_circle,
                                             size: 14,
-                                            color: _green,
+                                            color: AppColors.primary,
                                           ),
                                         ],
                                       ],
@@ -509,7 +512,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                       ),
 
                       const SizedBox(height: 16),
-                      const Divider(height: 1, color: Color(0xFFF0F0F0)),
+                      const Divider(height: 1, color: AppColors.divider),
                       const SizedBox(height: 16),
 
                       // ── Description ────────────────────────────────────────
@@ -528,30 +531,30 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                 hintText:
                                     'A premium cricket facility located in the heart of Civil Lines...',
                                 hintStyle: TextStyle(
-                                  color: Colors.grey[400],
+                                  color: AppColors.textSecondary,
                                   fontSize: 13,
                                 ),
                                 filled: true,
-                                fillColor: const Color(0xFFF8FAFB),
+                                fillColor: AppColors.surface,
                                 contentPadding: const EdgeInsets.all(14),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.grey[200]!,
+                                    color: AppColors.border!,
                                     width: 1,
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
-                                    color: Colors.grey[200]!,
+                                    color: AppColors.border!,
                                     width: 1,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: const BorderSide(
-                                    color: _green,
+                                    color: AppColors.primary,
                                     width: 1.5,
                                   ),
                                 ),
@@ -561,36 +564,35 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                         ),
                       ),
 
-                      const SizedBox(height: 16),
+                      // const SizedBox(height: 16),
 
                       // ── Stats chips ────────────────────────────────────────
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: _StatChip(
-                                icon: Icons.trending_up_rounded,
-                                label: 'ESTIMATED\nREACH',
-                                value: '2.4k',
-                                unit: 'Users/mo',
-                                color: _green,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: _StatChip(
-                                icon: Icons.stars_rounded,
-                                label: 'PLATFORM\nSCORE',
-                                value: '98',
-                                unit: '/100',
-                                color: Colors.blue[700]!,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         child: _StatChip(
+                      //           icon: Icons.trending_up_rounded,
+                      //           label: 'ESTIMATED\nREACH',
+                      //           value: '2.4k',
+                      //           unit: 'Users/mo',
+                      //           color:AppColors.primary,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: 12),
+                      //       Expanded(
+                      //         child: _StatChip(
+                      //           icon: Icons.stars_rounded,
+                      //           label: 'PLATFORM\nSCORE',
+                      //           value: '98',
+                      //           unit: '/100',
+                      //           color: Colors.blue[700]!,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(height: 24),
 
                       // ── Save button ────────────────────────────────────────
@@ -606,7 +608,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                                     width: 20,
                                     height: 20,
                                     child: CircularProgressIndicator(
-                                      color: Colors.white,
+                                      color: AppColors.primary,
                                       strokeWidth: 2.5,
                                     ),
                                   )
@@ -619,13 +621,14 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: _green,
+                              backgroundColor: AppColors.primary,
                               foregroundColor: Colors.white,
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
                               ),
-                              disabledBackgroundColor: _green.withOpacity(0.5),
+                              disabledBackgroundColor: AppColors.primary
+                                  .withOpacity(0.5),
                             ),
                           ),
                         ),
@@ -640,7 +643,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                             'Discard Changes',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey[600],
+                              color: AppColors.textSecondary,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -688,10 +691,10 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                 width: double.infinity,
                 height: 180,
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: AppColors.surface,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Colors.grey[300]!,
+                    color: AppColors.primary.withOpacity(.12)!,
                     style: BorderStyle.solid,
                   ),
                 ),
@@ -701,12 +704,15 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                     Icon(
                       Icons.add_photo_alternate_outlined,
                       size: 44,
-                      color: Colors.grey[400],
+                      color: AppColors.textSecondary,
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Tap to add ground photos',
-                      style: TextStyle(fontSize: 13, color: Colors.grey[500]),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -744,7 +750,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                     color: Colors.grey[50],
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: Colors.grey[300]!,
+                      color: AppColors.primary.withOpacity(.12)!,
                       style: BorderStyle.solid,
                     ),
                   ),
@@ -754,12 +760,15 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
                       Icon(
                         Icons.camera_alt_outlined,
                         size: 18,
-                        color: Colors.grey[500],
+                        color: AppColors.textSecondary,
                       ),
                       const SizedBox(height: 2),
                       Text(
                         'Upload',
-                        style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ],
                   ),
@@ -783,24 +792,24 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
       style: const TextStyle(fontSize: 14),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey[400], fontSize: 13),
+        hintStyle: TextStyle(color: AppColors.textSecondary, fontSize: 13),
         filled: true,
-        fillColor: const Color(0xFFF8FAFB),
+        fillColor: AppColors.surface,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 14,
           vertical: 13,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.grey[200]!, width: 1),
+          borderSide: BorderSide(color: AppColors.border!, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.grey[200]!, width: 1),
+          borderSide: BorderSide(color: AppColors.border!, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: _green, width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -814,9 +823,9 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFB),
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey[200]!, width: 1),
+        border: Border.all(color: AppColors.border!, width: 1),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
@@ -824,11 +833,11 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
           isExpanded: true,
           icon: Icon(
             Icons.keyboard_arrow_down_rounded,
-            color: Colors.grey[500],
+            color: AppColors.textSecondary,
           ),
           style: const TextStyle(
             fontSize: 14,
-            color: Color(0xFF0E1A13),
+            color: AppColors.textPrimary,
             fontWeight: FontWeight.w500,
           ),
           items: _sportTypes
@@ -849,7 +858,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
           fontSize: 11,
           fontWeight: FontWeight.w700,
           letterSpacing: 1.4,
-          color: Colors.grey[500],
+          color: AppColors.textSecondary,
         ),
       ),
     );
@@ -861,7 +870,7 @@ class _AddGroundScreenState extends State<AddGroundScreen> {
       style: TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w600,
-        color: Colors.grey[700],
+        color: AppColors.textPrimary,
       ),
     );
   }

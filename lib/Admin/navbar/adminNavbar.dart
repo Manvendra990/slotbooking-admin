@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
+import 'package:slotbookingadmin/theme/app_spacing.dart';
 
 class AdminNavBar extends StatelessWidget {
   final int currentIndex;
 
   const AdminNavBar({super.key, required this.currentIndex});
-
-  static const _green = Color(0xFF0D5C3A);
-  static const _bg = Color(0xFFF5F7F5);
 
   static const _items = [
     _NavItem(
@@ -22,12 +21,12 @@ class AdminNavBar extends StatelessWidget {
     ),
     _NavItem(
       icon: Icons.access_time_rounded,
-      label: 'Slots',
+      label: 'AddSlots',
       route: '/admin/slotmanagement',
     ),
     _NavItem(
       icon: Icons.book_online_rounded,
-      label: 'Bookings',
+      label: 'View-Slots',
       route: '/admin/slot',
     ),
     _NavItem(
@@ -41,23 +40,26 @@ class AdminNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.07),
+            color: Colors.black.withOpacity(.04),
             blurRadius: 20,
-            offset: const Offset(0, -4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm,
+            vertical: AppSpacing.md - 2,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(_items.length, (i) {
@@ -72,13 +74,13 @@ class AdminNavBar extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 8,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md + 2,
+                      vertical: AppSpacing.sm,
                     ),
                     decoration: BoxDecoration(
                       color: isActive
-                          ? _green.withOpacity(0.1)
+                          ? AppColors.primary.withOpacity(.12)
                           : Colors.transparent,
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -88,9 +90,11 @@ class AdminNavBar extends StatelessWidget {
                         Icon(
                           item.icon,
                           size: 22,
-                          color: isActive ? _green : Colors.grey[400],
+                          color: isActive
+                              ? AppColors.primary
+                              : AppColors.textSecondary.withOpacity(0.5),
                         ),
-                        const SizedBox(height: 4),
+                        SizedBox(height: AppSpacing.xs),
                         Text(
                           item.label,
                           style: TextStyle(
@@ -98,7 +102,9 @@ class AdminNavBar extends StatelessWidget {
                             fontWeight: isActive
                                 ? FontWeight.w700
                                 : FontWeight.w400,
-                            color: isActive ? _green : Colors.grey[400],
+                            color: isActive
+                                ? AppColors.primary
+                                : AppColors.textSecondary.withOpacity(0.5),
                           ),
                         ),
                       ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:slotbookingadmin/Admin/navbar/adminNavbar.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class AdminRevenueScreen extends StatefulWidget {
   final String adminId;
@@ -19,7 +20,7 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
   String? _selectedGroundName;
   late TabController _tabController;
 
-  static const _primary = Color(0xFF0D5C3A);
+  static const _primary = AppColors.primary;
   static const _gold = Color(0xFFFFB300);
 
   @override
@@ -78,8 +79,8 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
       builder: (ctx, child) => Theme(
         data: Theme.of(ctx).copyWith(
           colorScheme: const ColorScheme.light(
-            primary: _primary,
-            onPrimary: Colors.white,
+            primary: AppColors.primary,
+            onPrimary: AppColors.card,
           ),
         ),
         child: child!,
@@ -92,7 +93,7 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const AdminNavBar(currentIndex: 4),
-      backgroundColor: const Color(0xFFF5F7F5),
+      backgroundColor: AppColors.background,
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: _txStream,
         builder: (context, snapshot) {
@@ -130,8 +131,8 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
               SliverAppBar(
                 expandedHeight: 220,
                 pinned: true,
-                backgroundColor: _primary,
-                foregroundColor: Colors.white,
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.card,
                 elevation: 0,
                 title: const Text(
                   'Revenue',
@@ -142,7 +143,7 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
                     icon: Badge(
                       isLabelVisible:
                           _selectedDate != null || _selectedGroundId != null,
-                      backgroundColor: _gold,
+                      backgroundColor: AppColors.primary,
                       child: const Icon(Icons.tune_rounded),
                     ),
                     onPressed: () => _showFilterSheet(context),
@@ -162,9 +163,9 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
                 ),
                 bottom: TabBar(
                   controller: _tabController,
-                  indicatorColor: _gold,
+                  indicatorColor: AppColors.surface,
                   indicatorWeight: 3,
-                  labelColor: Colors.white,
+                  labelColor: AppColors.card,
                   unselectedLabelColor: Colors.white60,
                   labelStyle: const TextStyle(
                     fontWeight: FontWeight.w700,
@@ -179,7 +180,7 @@ class _AdminRevenueScreenState extends State<AdminRevenueScreen>
             ],
             body: isLoading
                 ? const Center(
-                    child: CircularProgressIndicator(color: _primary),
+                    child: CircularProgressIndicator(color: AppColors.primary),
                   )
                 : TabBarView(
                     controller: _tabController,
@@ -365,7 +366,7 @@ class _RevenueHeader extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF0A4429), Color(0xFF0D5C3A), Color(0xFF1A8A57)],
+          colors: [AppColors.primaryDark, AppColors.primary, Color(0xFFFF7DB2)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -400,7 +401,7 @@ class _RevenueHeader extends StatelessWidget {
 
           // Content — padding-based, no SafeArea to avoid overflow
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 72, 20, 16),
+            padding: const EdgeInsets.fromLTRB(20, 64, 20, 12),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -428,13 +429,13 @@ class _RevenueHeader extends StatelessWidget {
                           const Icon(
                             Icons.filter_alt_rounded,
                             size: 11,
-                            color: Colors.white,
+                            color: AppColors.card,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             filterLabel,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: AppColors.card,
                               fontSize: 11,
                             ),
                           ),
@@ -442,7 +443,7 @@ class _RevenueHeader extends StatelessWidget {
                           const Icon(
                             Icons.close_rounded,
                             size: 11,
-                            color: Colors.white,
+                            color: AppColors.card,
                           ),
                         ],
                       ),
@@ -452,7 +453,7 @@ class _RevenueHeader extends StatelessWidget {
                 Text(
                   isFiltered ? 'Filtered Revenue' : 'Total Revenue',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.75),
+                    color: AppColors.card.withOpacity(0.75),
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
@@ -465,7 +466,7 @@ class _RevenueHeader extends StatelessWidget {
                         width: 120,
                         height: 36,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.15),
+                          color: AppColors.card.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(8),
                         ),
                       )
@@ -475,7 +476,7 @@ class _RevenueHeader extends StatelessWidget {
                           Text(
                             '₹',
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
+                              color: AppColors.card.withOpacity(0.8),
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
@@ -599,9 +600,9 @@ class _TxCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(.04),
+            blurRadius: 20,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -611,8 +612,8 @@ class _TxCard extends StatelessWidget {
           // Header
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: const BoxDecoration(
-              color: Color(0xFFF0F9F4),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withOpacity(.08),
               borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             ),
             child: Row(
@@ -621,13 +622,13 @@ class _TxCard extends StatelessWidget {
                   width: 38,
                   height: 38,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF0D5C3A).withOpacity(0.12),
+                    color: AppColors.primary.withOpacity(.12),
                     borderRadius: BorderRadius.circular(11),
                   ),
                   child: const Icon(
                     Icons.sports_soccer_rounded,
                     size: 19,
-                    color: Color(0xFF0D5C3A),
+                    color: AppColors.primary,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -641,7 +642,7 @@ class _TxCard extends StatelessWidget {
                         style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 13,
-                          color: Color(0xFF0E1A13),
+                          color: AppColors.textPrimary,
                         ),
                       ),
                       if (slotLabel.isNotEmpty)
@@ -649,7 +650,7 @@ class _TxCard extends StatelessWidget {
                           slotLabel,
                           style: const TextStyle(
                             fontSize: 11,
-                            color: Color(0xFF6E7D72),
+                            color: AppColors.textSecondary,
                           ),
                         ),
                     ],
@@ -664,7 +665,7 @@ class _TxCard extends StatelessWidget {
                       style: const TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 17,
-                        color: Color(0xFF0D5C3A),
+                        color: AppColors.primary,
                       ),
                     ),
                     Container(
@@ -674,7 +675,7 @@ class _TxCard extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: isSuccess
-                            ? const Color(0xFF0D5C3A).withOpacity(0.1)
+                            ? AppColors.primary.withOpacity(0.1)
                             : Colors.red.shade50,
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -683,9 +684,7 @@ class _TxCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 9,
                           fontWeight: FontWeight.w800,
-                          color: isSuccess
-                              ? const Color(0xFF0D5C3A)
-                              : Colors.red,
+                          color: isSuccess ? AppColors.primary : Colors.red,
                         ),
                       ),
                     ),
@@ -749,7 +748,7 @@ class _TxCard extends StatelessWidget {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF5F7F5),
+                        color: AppColors.surface,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -757,7 +756,7 @@ class _TxCard extends StatelessWidget {
                           const Icon(
                             Icons.receipt_rounded,
                             size: 13,
-                            color: Color(0xFF6E7D72),
+                            color: AppColors.textSecondary,
                           ),
                           const SizedBox(width: 6),
                           Expanded(
@@ -765,7 +764,7 @@ class _TxCard extends StatelessWidget {
                               razorId,
                               style: const TextStyle(
                                 fontSize: 11,
-                                color: Color(0xFF6E7D72),
+                                color: AppColors.textSecondary,
                                 fontFamily: 'monospace',
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -774,7 +773,7 @@ class _TxCard extends StatelessWidget {
                           const Icon(
                             Icons.copy_rounded,
                             size: 13,
-                            color: Color(0xFF0D5C3A),
+                            color: AppColors.primary,
                           ),
                         ],
                       ),
@@ -800,13 +799,16 @@ class _TxRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: 14, color: const Color(0xFF6E7D72)),
+        Icon(icon, size: 14, color: AppColors.textSecondary),
         const SizedBox(width: 8),
         SizedBox(
           width: 52,
           child: Text(
             label,
-            style: const TextStyle(fontSize: 11, color: Color(0xFF6E7D72)),
+            style: const TextStyle(
+              fontSize: 11,
+              color: AppColors.textSecondary,
+            ),
           ),
         ),
         Expanded(
@@ -815,7 +817,7 @@ class _TxRow extends StatelessWidget {
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF0E1A13),
+              color: AppColors.textPrimary,
             ),
             overflow: TextOverflow.ellipsis,
           ),
@@ -868,21 +870,21 @@ class _GroundCard extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.card,
           borderRadius: BorderRadius.circular(16),
           border: isSelected
-              ? Border.all(color: const Color(0xFF0D5C3A), width: 2)
+              ? Border.all(color: AppColors.primary, width: 2)
               : isTop
               ? Border.all(
-                  color: const Color(0xFFFFB300).withOpacity(0.5),
+                  color: AppColors.primary.withOpacity(0.5),
                   width: 1.5,
                 )
               : null,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              color: Colors.black.withOpacity(.04),
+              blurRadius: 20,
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -897,8 +899,8 @@ class _GroundCard extends StatelessWidget {
                   height: 34,
                   decoration: BoxDecoration(
                     color: isTop
-                        ? const Color(0xFFFFB300).withOpacity(0.15)
-                        : const Color(0xFFF0F9F4),
+                        ? AppColors.primary.withOpacity(0.15)
+                        : AppColors.primary.withOpacity(.08),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -906,14 +908,14 @@ class _GroundCard extends StatelessWidget {
                         ? const Icon(
                             Icons.emoji_events_rounded,
                             size: 16,
-                            color: Color(0xFFFFB300),
+                            color: AppColors.primary,
                           )
                         : Text(
                             '$rank',
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w800,
-                              color: Color(0xFF0D5C3A),
+                              color: AppColors.primary,
                             ),
                           ),
                   ),
@@ -932,7 +934,7 @@ class _GroundCard extends StatelessWidget {
                               style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
-                                color: Color(0xFF0E1A13),
+                                color: AppColors.textPrimary,
                               ),
                             ),
                           ),
@@ -943,9 +945,7 @@ class _GroundCard extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(
-                                  0xFFFFB300,
-                                ).withOpacity(0.15),
+                                color: AppColors.primary.withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: const Text(
@@ -953,7 +953,7 @@ class _GroundCard extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 9,
                                   fontWeight: FontWeight.w900,
-                                  color: Color(0xFFFFB300),
+                                  color: AppColors.primary,
                                 ),
                               ),
                             ),
@@ -965,7 +965,7 @@ class _GroundCard extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF0D5C3A).withOpacity(0.1),
+                                color: AppColors.primary.withOpacity(.12),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: const Text(
@@ -973,7 +973,7 @@ class _GroundCard extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 9,
                                   fontWeight: FontWeight.w900,
-                                  color: Color(0xFF0D5C3A),
+                                  color: AppColors.primary,
                                 ),
                               ),
                             ),
@@ -983,7 +983,7 @@ class _GroundCard extends StatelessWidget {
                         '${stat.count} booking${stat.count != 1 ? 's' : ''}',
                         style: const TextStyle(
                           fontSize: 11,
-                          color: Color(0xFF6E7D72),
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     ],
@@ -994,7 +994,7 @@ class _GroundCard extends StatelessWidget {
                   style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 16,
-                    color: Color(0xFF0D5C3A),
+                    color: AppColors.primary,
                   ),
                 ),
               ],
@@ -1007,7 +1007,7 @@ class _GroundCard extends StatelessWidget {
                 minHeight: 6,
                 backgroundColor: const Color(0xFFF0F0F0),
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  isTop ? const Color(0xFFFFB300) : const Color(0xFF0D5C3A),
+                  isTop ? AppColors.primary : AppColors.primary,
                 ),
               ),
             ),
@@ -1015,15 +1015,19 @@ class _GroundCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Tap to filter transactions',
-                  style: TextStyle(fontSize: 10, color: Colors.grey.shade400),
+                Expanded(
+                  child: Text(
+                    'Tap to filter transactions',
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade400),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
+                const SizedBox(width: 8),
                 Text(
                   '${(pct * 100).toStringAsFixed(1)}% of total',
                   style: const TextStyle(
                     fontSize: 10,
-                    color: Color(0xFF6E7D72),
+                    color: AppColors.textSecondary,
                   ),
                 ),
               ],
@@ -1073,7 +1077,7 @@ class _FilterSheetState extends State<_FilterSheet> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: AppColors.card,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       padding: EdgeInsets.fromLTRB(
@@ -1121,7 +1125,7 @@ class _FilterSheetState extends State<_FilterSheet> {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w800,
-              color: Color(0xFF6E7D72),
+              color: AppColors.textSecondary,
               letterSpacing: 1.2,
             ),
           ),
@@ -1136,8 +1140,8 @@ class _FilterSheetState extends State<_FilterSheet> {
                 builder: (ctx, child) => Theme(
                   data: Theme.of(ctx).copyWith(
                     colorScheme: const ColorScheme.light(
-                      primary: Color(0xFF0D5C3A),
-                      onPrimary: Colors.white,
+                      primary: AppColors.primary,
+                      onPrimary: AppColors.card,
                     ),
                   ),
                   child: child!,
@@ -1148,10 +1152,10 @@ class _FilterSheetState extends State<_FilterSheet> {
             child: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: const Color(0xFFF5F7F5),
+                color: AppColors.surface,
                 borderRadius: BorderRadius.circular(12),
                 border: _date != null
-                    ? Border.all(color: const Color(0xFF0D5C3A))
+                    ? Border.all(color: AppColors.primary)
                     : null,
               ),
               child: Row(
@@ -1159,7 +1163,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                   const Icon(
                     Icons.calendar_today_rounded,
                     size: 17,
-                    color: Color(0xFF0D5C3A),
+                    color: AppColors.primary,
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -1171,8 +1175,8 @@ class _FilterSheetState extends State<_FilterSheet> {
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: _date != null
-                            ? const Color(0xFF0E1A13)
-                            : const Color(0xFF6E7D72),
+                            ? AppColors.textPrimary
+                            : AppColors.textSecondary,
                       ),
                     ),
                   ),
@@ -1182,7 +1186,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                       child: const Icon(
                         Icons.close_rounded,
                         size: 16,
-                        color: Color(0xFF6E7D72),
+                        color: AppColors.textSecondary,
                       ),
                     ),
                 ],
@@ -1197,7 +1201,7 @@ class _FilterSheetState extends State<_FilterSheet> {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w800,
-                color: Color(0xFF6E7D72),
+                color: AppColors.textSecondary,
                 letterSpacing: 1.2,
               ),
             ),
@@ -1234,7 +1238,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                 widget.onApply(_date, _groundId, groundName);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF0D5C3A),
+                backgroundColor: AppColors.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                 ),
@@ -1242,7 +1246,7 @@ class _FilterSheetState extends State<_FilterSheet> {
               child: const Text(
                 'Apply',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.card,
                   fontWeight: FontWeight.w700,
                   fontSize: 15,
                 ),
@@ -1273,7 +1277,7 @@ class _Chip extends StatelessWidget {
         duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: selected ? const Color(0xFF0D5C3A) : const Color(0xFFF5F7F5),
+          color: selected ? AppColors.primary : const Color(0xFFF5F7F5),
           borderRadius: BorderRadius.circular(20),
           border: selected ? null : Border.all(color: const Color(0xFFE0E0E0)),
         ),
@@ -1282,7 +1286,7 @@ class _Chip extends StatelessWidget {
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : const Color(0xFF4A5568),
+            color: selected ? AppColors.card : const Color(0xFF4A5568),
           ),
         ),
       ),
@@ -1312,13 +1316,13 @@ class _EmptyState extends StatelessWidget {
               width: 72,
               height: 72,
               decoration: BoxDecoration(
-                color: const Color(0xFFE8F5EE),
+                color: AppColors.primary.withOpacity(.10),
                 borderRadius: BorderRadius.circular(22),
               ),
               child: const Icon(
                 Icons.bar_chart_rounded,
                 size: 36,
-                color: Color(0xFF0D5C3A),
+                color: AppColors.primary,
               ),
             ),
             const SizedBox(height: 16),
@@ -1327,7 +1331,7 @@ class _EmptyState extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF0E1A13),
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 6),
@@ -1335,7 +1339,10 @@ class _EmptyState extends StatelessWidget {
               isFiltered
                   ? 'Try adjusting your filters'
                   : 'Revenue will appear here once bookings are paid',
-              style: const TextStyle(fontSize: 13, color: Color(0xFF6E7D72)),
+              style: const TextStyle(
+                fontSize: 13,
+                color: AppColors.textSecondary,
+              ),
               textAlign: TextAlign.center,
             ),
             if (isFiltered) ...[
@@ -1344,9 +1351,7 @@ class _EmptyState extends StatelessWidget {
                 onPressed: onClear,
                 icon: const Icon(Icons.clear_rounded),
                 label: const Text('Clear filters'),
-                style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF0D5C3A),
-                ),
+                style: TextButton.styleFrom(foregroundColor: AppColors.primary),
               ),
             ],
           ],

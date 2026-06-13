@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:slotbookingadmin/features/auth/screens/login_screen.dart';
+import 'package:slotbookingadmin/theme/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -104,7 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
-                      colors: [Color(0xFF39FF8F), Colors.transparent],
+                      colors: [AppColors.primary, Colors.transparent],
                     ),
                   ),
                 ),
@@ -126,7 +127,7 @@ class _SplashScreenState extends State<SplashScreen>
                       scale: _logoScale.value,
                       child: ShaderMask(
                         shaderCallback: (bounds) => const LinearGradient(
-                          colors: [Color(0xFF4DFFA0), Color(0xFF00CC6A)],
+                          colors: [AppColors.primary, AppColors.primaryDark],
                         ).createShader(bounds),
                         child: const Text(
                           'KINETIC',
@@ -184,7 +185,10 @@ class _SplashScreenState extends State<SplashScreen>
                             height: 2,
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [Color(0xFF4DFFA0), Color(0xFF00CC6A)],
+                                colors: [
+                                  AppColors.primary,
+                                  AppColors.primaryDark,
+                                ],
                               ),
                               borderRadius: BorderRadius.circular(1),
                               boxShadow: [
@@ -229,7 +233,7 @@ class _SplashScreenState extends State<SplashScreen>
                         const Icon(
                           Icons.bolt,
                           size: 12,
-                          color: Color(0xFF4DFFA0),
+                          color: AppColors.primary,
                         ),
                       ],
                     ),
