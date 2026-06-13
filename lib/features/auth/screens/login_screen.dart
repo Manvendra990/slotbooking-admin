@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/auth_provider.dart';
 import 'package:slotbookingadmin/theme/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminLoginScreen extends ConsumerStatefulWidget {
   const AdminLoginScreen({super.key});
@@ -87,6 +88,9 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen>
     if (!mounted) return;
 
     if (role != null) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('keep_logged_in', _keepLoggedIn);
+
       final route = switch (role) {
         'admin' => '/admin/dashboard',
         _ => '/home',

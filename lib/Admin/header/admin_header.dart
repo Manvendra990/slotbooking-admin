@@ -58,6 +58,7 @@ class AdminHeader extends StatelessWidget {
 
           Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
+           
             width: 40,
             height: 40,
             decoration: BoxDecoration(
@@ -67,6 +68,7 @@ class AdminHeader extends StatelessWidget {
             ),
             child: IconButton(
               onPressed: () => context.push('/admin/profile'),
+               padding: EdgeInsets.zero,
               icon: const Icon(
                 Icons.person_rounded,
                 color: AppColors.primaryDark,

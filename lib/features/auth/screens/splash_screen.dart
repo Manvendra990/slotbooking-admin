@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:slotbookingadmin/features/auth/screens/login_screen.dart';
 import 'package:slotbookingadmin/theme/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -76,7 +78,16 @@ class _SplashScreenState extends State<SplashScreen>
 
     // Navigate after 3 seconds
     await Future.delayed(const Duration(milliseconds: 2100));
-    context.go('/admin/login');
+    final prefs = await SharedPreferences.getInstance();
+    final keepLoggedIn = prefs.getBool('keep_logged_in') ?? false;
+    final user = FirebaseAuth.instance.currentUser;
+    if (!mounted) return;
+
+    if (user != null && keepLoggedIn) {
+      context.go('/admin/dashboard');
+    } else {
+      context.go('/admin/login');
+    }
   }
 
   @override

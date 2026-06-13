@@ -38,6 +38,8 @@ dependencies:
   firebase_storage: ^12.3.2
   firebase_messaging: ^15.1.3   # push notifications
 
+  #local storage dependency
+  shared_preferences: ^2.3.2
  
   # Google Sign-In
   google_sign_in: ^6.2.1
