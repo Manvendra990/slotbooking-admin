@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:slotbookingadmin/Admin/admin_shell.dart';
 import 'package:slotbookingadmin/theme/app_colors.dart';
+import 'package:go_router/go_router.dart';
+// import 'package:slotbookingadmin/Admin/profile/admin_profile_screen.dart';
 
 class AdminHeader extends StatelessWidget {
   final String title;
@@ -63,35 +65,16 @@ class AdminHeader extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.primary, width: 2),
             ),
-            child: const Icon(
-              Icons.person_rounded,
-              color: AppColors.primaryDark,
-              size: 24,
+            child: IconButton(
+              onPressed: () => context.push('/admin/profile'),
+              icon: const Icon(
+                Icons.person_rounded,
+                color: AppColors.primaryDark,
+                size: 24,
+              ),
             ),
           ),
 
-          // Bell
-          // Stack(
-          //   children: [
-          //     IconButton(
-          //       icon: const Icon(Icons.notifications_none_rounded),
-          //       color: Colors.grey[700],
-          //       onPressed: () {},
-          //     ),
-          //     Positioned(
-          //       right: 10,
-          //       top: 10,
-          //       child: Container(
-          //         width: 8,
-          //         height: 8,
-          //         decoration: const BoxDecoration(
-          //           color: Colors.red,
-          //           shape: BoxShape.circle,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
           const SizedBox(width: 30),
         ],
       ),

@@ -14,9 +14,10 @@ class AdminBookingsScreen extends StatefulWidget {
 }
 
 class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
-  static const _green = Color(0xFF0D5C3A);
+  
 
   bool _showUpcoming = true;
+  String _filterStatus = 'all';
   final _uid = FirebaseAuth.instance.currentUser?.uid ?? '';
 
   @override
@@ -76,6 +77,11 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                         ),
                       ],
                     ),
+                  ),
+                  const SizedBox(height: 14),
+                  _FilterRow(
+                    selected: _filterStatus,
+                    onChanged: (val) => setState(() => _filterStatus = val),
                   ),
                   const SizedBox(height: 20),
                 ],
@@ -152,6 +158,16 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                         : bDate.compareTo(aDate); // past: latest first
                   });
 
+                  final filteredDocs = _filterStatus == 'all'
+                      ? docs
+                      : docs.where((doc) {
+                          final data = doc.data() as Map<String, dynamic>;
+                          final bookingStatus = (data['bookingStatus'] ?? '')
+                              .toString()
+                              .toLowerCase();
+                          return bookingStatus == _filterStatus;
+                        }).toList();
+
                   // Active slot count
                   final activeCount = allDocs.where((doc) {
                     final data = doc.data() as Map<String, dynamic>;
@@ -178,10 +194,10 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                         const SizedBox(height: 24),
 
                         // ── Bookings list ──────────────────────────────────
-                        if (docs.isEmpty)
+                        if (filteredDocs.isEmpty)
                           _EmptyState(isUpcoming: _showUpcoming)
                         else
-                          ...docs.map((doc) {
+                          ...filteredDocs.map((doc) {
                             final data = doc.data() as Map<String, dynamic>;
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16),
@@ -923,6 +939,86 @@ class _TabChip extends StatelessWidget {
               fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
               color: isActive ? const Color(0xFF0E1A13) : Colors.grey[500],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Filter Row ────────────────────────────────────────────────────────────────
+class _FilterRow extends StatelessWidget {
+  final String selected;
+  final ValueChanged<String> onChanged;
+
+  const _FilterRow({required this.selected, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text(
+          'Filter:',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textSecondary,
+          ),
+        ),
+        const SizedBox(width: 10),
+        _FilterChip(
+          label: 'All',
+          value: 'all',
+          selected: selected,
+          onTap: onChanged,
+        ),
+        const SizedBox(width: 8),
+        _FilterChip(
+          label: 'Confirmed',
+          value: 'confirmed',
+          selected: selected,
+          onTap: onChanged,
+        ),
+      ],
+    );
+  }
+}
+
+class _FilterChip extends StatelessWidget {
+  final String label;
+  final String value;
+  final String selected;
+  final ValueChanged<String> onTap;
+
+  const _FilterChip({
+    required this.label,
+    required this.value,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isActive = selected == value;
+    return GestureDetector(
+      onTap: () => onTap(value),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+        decoration: BoxDecoration(
+          color: isActive ? AppColors.primary : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isActive ? AppColors.primary : AppColors.border,
+            width: 1,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: isActive ? Colors.white : AppColors.textSecondary,
           ),
         ),
       ),

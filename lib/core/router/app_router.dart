@@ -6,6 +6,7 @@ import 'package:slotbookingadmin/Admin/admin_shell.dart';
 import 'package:slotbookingadmin/Admin/dashboard/admin_dashboard_screen.dart';
 import 'package:slotbookingadmin/Admin/ground/add_edit_ground_screen.dart';
 import 'package:slotbookingadmin/Admin/ground/my_grounds_screen.dart';
+import 'package:slotbookingadmin/Admin/profile/admin_profile_screen.dart';
 import 'package:slotbookingadmin/Admin/revenue/revenue_report_screen.dart';
 import 'package:slotbookingadmin/Admin/slot_bookings/admin_addslot.dart';
 import 'package:slotbookingadmin/Admin/slot_bookings/admin_slotview.dart';
@@ -95,6 +96,13 @@ final GoRouter router = GoRouter(
       builder: (context, state) {
         final adminId = FirebaseAuth.instance.currentUser?.uid ?? '';
         return AdminShell(child: AdminRevenueScreen(adminId: adminId));
+      },
+    ),
+
+    GoRoute(
+      path: '/admin/profile',
+      builder: (context, state) {
+        return const AdminShell(child: AdminProfileScreen());
       },
     ),
   ],

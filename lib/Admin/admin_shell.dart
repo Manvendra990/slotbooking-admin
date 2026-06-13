@@ -92,12 +92,12 @@ class _AdminDrawer extends StatelessWidget {
                 _DrawerItem(
                   icon: Icons.schedule_outlined,
                   label: 'Slots & pricing',
-                  route: '/admin/slotmanagement',
+                  route: '/admin/slot',
                 ),
                 _DrawerItem(
                   icon: Icons.book_online_outlined,
-                  label: 'Bookings',
-                  route: '/admin/slot',
+                  label: 'Add Slots',
+                  route: '/admin/slotmanagement',
                 ),
                 _DrawerItem(
                   icon: Icons.bar_chart_outlined,
@@ -166,7 +166,11 @@ class _DrawerItem extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       onTap: () {
         Navigator.pop(context);
-        context.go(route);
+        if (route == '/admin/profile') {
+          context.push(route);
+        } else {
+          context.go(route);
+        }
       },
     );
   }
