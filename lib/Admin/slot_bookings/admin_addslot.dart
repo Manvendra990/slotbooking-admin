@@ -283,10 +283,10 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(ctx);
-                  context.go('/admin/bookings');
+                  context.go('/admin/slot');
                 },
                 child: Text(
-                  'View Bookings',
+                  'View Slots',
                   style: TextStyle(
                     color: Colors.grey[600],
                     fontWeight: FontWeight.w600,
