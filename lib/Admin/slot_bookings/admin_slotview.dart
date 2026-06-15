@@ -14,8 +14,6 @@ class AdminBookingsScreen extends StatefulWidget {
 }
 
 class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
-  
-
   bool _showUpcoming = true;
   String _filterStatus = 'all';
   final _uid = FirebaseAuth.instance.currentUser?.uid ?? '';
@@ -118,7 +116,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                     );
                   }
 
-                  // final now = DateTime.now();
+                  final now = DateTime.now();
                   final today = DateTime(
                     DateTime.now().year,
                     DateTime.now().month,
@@ -130,10 +128,8 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                   final docs = allDocs.where((doc) {
                     final data = doc.data() as Map<String, dynamic>;
                     final slotDate = (data['slotDate'] as Timestamp?)?.toDate();
+                    final endTime = (data['endTime'] as Timestamp?)?.toDate();
                     if (slotDate == null) return false;
-                    // return _showUpcoming
-                    //     ? slotDate.isAfter(now)
-                    //     : slotDate.isBefore(now);
 
                     final bookingDate = DateTime(
                       slotDate.year,
@@ -141,9 +137,13 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                       slotDate.day,
                     );
 
-                    return _showUpcoming
-                        ? !bookingDate.isBefore(today)
-                        : bookingDate.isBefore(today);
+                    final isDatePast = bookingDate.isBefore(today);
+                    final isToday = bookingDate.isAtSameMomentAs(today);
+                    final isTimeExpiredToday =
+                        isToday && endTime != null && now.isAfter(endTime);
+                    final isPast = isDatePast || isTimeExpiredToday;
+
+                    return _showUpcoming ? !isPast : isPast;
                   }).toList();
 
                   // ✅ Sort in Dart — no Firestore index needed
@@ -172,6 +172,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                   final activeCount = allDocs.where((doc) {
                     final data = doc.data() as Map<String, dynamic>;
                     final slotDate = (data['slotDate'] as Timestamp?)?.toDate();
+                    final endTime = (data['endTime'] as Timestamp?)?.toDate();
                     // return slotDate != null && slotDate.isAfter(now);
                     if (slotDate == null) return false;
 
@@ -181,7 +182,12 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                       slotDate.day,
                     );
 
-                    return !bookingDate.isBefore(today);
+                    final isDatePast = bookingDate.isBefore(today);
+                    final isToday = bookingDate.isAtSameMomentAs(today);
+                    final isTimeExpiredToday =
+                        isToday && endTime != null && now.isAfter(endTime);
+
+                    return !(isDatePast || isTimeExpiredToday);
                   }).length;
 
                   return SingleChildScrollView(
@@ -583,28 +589,35 @@ class _BookingCard extends StatelessWidget {
         : '--';
 
     // ── Determine display status for past/expired slots ─────────────────
-    // final now = DateTime.now();
+    final now = DateTime.now();
     final today = DateTime(
       DateTime.now().year,
       DateTime.now().month,
       DateTime.now().day,
     );
-    // final isSlotPast = slotDate != null && slotDate.isBefore(now);
-    // final today = DateTime(
-    //   DateTime.now().year,
-    //   DateTime.now().month,
-    //   DateTime.now().day,
-    // );
 
-    final isSlotPast =
+    final isSlotDatePast =
         slotDate != null &&
         DateTime(slotDate.year, slotDate.month, slotDate.day).isBefore(today);
 
-    final displayStatus = isSlotPast
-        ? (bookingStatus == 'available' ? 'expired' : 'completed')
-        : bookingStatus;
+    final isSlotDateToday = !isSlotDatePast;
+    final isLive =
+        isSlotDateToday &&
+        startTime != null &&
+        endTime != null &&
+        now.isAfter(startTime) &&
+        now.isBefore(endTime);
+    final isTimeExpiredToday =
+        isSlotDateToday && endTime != null && now.isAfter(endTime);
+    final isSlotPast = isSlotDatePast || isTimeExpiredToday;
 
-    final shortId = '#KN-${bookingId.substring(0, 4).toUpperCase()}';
+    final displayStatus = isLive
+        ? "live"
+        : (isSlotPast
+              ? (bookingStatus == 'available' ? 'expired' : 'completed')
+              : bookingStatus);
+
+    // final shortId = '#KN-${bookingId.substring(0, 4).toUpperCase()}';
 
     return Container(
       decoration: BoxDecoration(
@@ -820,6 +833,10 @@ class _StatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     Color bg, textColor;
     switch (status.toLowerCase()) {
+      case 'live':
+        bg = Colors.green.shade50;
+        textColor = AppColors.primary;
+        break;
       case 'confirmed':
         bg = const Color(0xFFE8F5EE);
         textColor = const Color(0xFF0D5C3A);
