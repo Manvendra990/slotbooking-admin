@@ -14,7 +14,6 @@ class AddSlotScreen extends StatefulWidget {
 }
 
 class _AddSlotScreenState extends State<AddSlotScreen> {
-  static const _green = Color(0xFF0D5C3A);
   static const _greenLight = Color(0xFFE8F5EE);
 
   bool _isLoading = false;
@@ -100,15 +99,56 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
         child: child!,
       ),
     );
-    if (picked != null) {
-      setState(() {
-        if (isStart) {
-          _startTime = picked;
-        } else {
-          _endTime = picked;
-        }
-      });
+    // if (picked != null) {
+    //   setState(() {
+    //     if (isStart) {
+    //       _startTime = picked;
+    //     } else {
+    //       _endTime = picked;
+    //     }
+    //   });
+    // }
+
+    if (picked == null) return;
+
+    if (_isTimeInPast(picked)) {
+      _showSnack(
+        "Selected time has already passed. Please choose a future time",
+        Colors.orange[700]!,
+      );
+
+      return;
     }
+
+    setState(() {
+      if (isStart) {
+        _startTime = picked;
+      } else {
+        _endTime = picked;
+      }
+    });
+  }
+
+  // check if a time is already in the past or not
+
+  bool _isTimeInPast(TimeOfDay time) {
+    final now = DateTime.now();
+    final isToday =
+        _slotDate.year == now.year &&
+        _slotDate.month == now.month &&
+        _slotDate.day == now.day;
+
+    if (!isToday) return false;
+
+    final selected = DateTime(
+      _slotDate.year,
+      _slotDate.month,
+      _slotDate.day,
+      time.hour,
+      time.minute,
+    );
+
+    return selected.isBefore(now);
   }
 
   // ── Validate slot ──────────────────────────────────────────────────────────
@@ -125,6 +165,15 @@ class _AddSlotScreenState extends State<AddSlotScreen> {
     final endMinutes = _endTime.hour * 60 + _endTime.minute;
     if (endMinutes <= startMinutes) {
       _showSnack('End time must be after start time.', Colors.orange[700]!);
+      return false;
+    }
+
+    // prevent saving expired slots for today
+    if (_isTimeInPast(_startTime)) {
+      _showSnack(
+        "Start time has aleady passed for today !",
+        Colors.orange[700]!,
+      );
       return false;
     }
     return true;
